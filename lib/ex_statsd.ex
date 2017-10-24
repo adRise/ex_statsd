@@ -48,7 +48,8 @@ defmodule ExStatsD do
               sink:      Keyword.get(options, :sink,      Config.get(:sink, @default_sink)),
               tags:      Keyword.get(options, :tags,      Config.get(:tags, @default_tags)),
               socket:    nil}
-    GenServer.start_link(__MODULE__, state, Keyword.merge([name: __MODULE__], options))
+    hibernate_timeout = Application.get_env(:ex_statsd, :gen_hibernate_timeout, 0)
+    GenServer.start_link(__MODULE__, state, Keyword.merge([name: __MODULE__, hibernate_after: 0], options))
   end
 
   @doc """

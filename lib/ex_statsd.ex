@@ -49,7 +49,11 @@ defmodule ExStatsD do
               tags:      Keyword.get(options, :tags,      Config.get(:tags, @default_tags)),
               socket:    nil}
     hibernate_timeout = Application.get_env(:ex_statsd, :gen_hibernate_timeout, 0)
-    GenServer.start_link(__MODULE__, state, Keyword.merge([name: __MODULE__, hibernate_after: 0], options))
+    GenServer.start_link(
+      __MODULE__,
+      state,
+      Keyword.merge([name: __MODULE__, hibernate_after: hibernate_timeout], options)
+    )
   end
 
   @doc """
@@ -69,7 +73,7 @@ defmodule ExStatsD do
 
   @doc false
   defp parse_host(host) when is_binary(host) do
-    case host |> to_char_list |> :inet.parse_address do
+    case host |> to_charlist |> :inet.parse_address do
       {:error, _}    -> host |> String.to_atom
       {:ok, address} -> address
     end

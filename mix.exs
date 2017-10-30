@@ -3,7 +3,7 @@ defmodule ExStatsD.Mixfile do
 
   def project do
     [app: :ex_statsd,
-     version: "0.5.3",
+     version: "0.5.4",
      elixir: "~> 1.5",
      package: package(),
      deps: deps(),
@@ -14,7 +14,8 @@ defmodule ExStatsD.Mixfile do
   end
 
   defp package do
-    [description: "A StatsD client for Elixir",
+    [organization: "tubitv",
+     description: "A StatsD client for Elixir",
      maintainers: ["Bruce Williams"],
      licenses: ["MIT"],
      links: %{github: "https://github.com/CargoSense/ex_statsd"}]
